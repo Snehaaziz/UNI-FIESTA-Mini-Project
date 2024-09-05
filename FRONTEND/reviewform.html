@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Webleb</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+    <div class="login-box">
+      <h2>Submit Review</h2>
+      <form id="reviewForm" action="/attends" method="POST">
+
+        <div class="user-box">
+          <input type="text" id="username" name="uname" required="">
+          <label>User name</label>
+        </div>
+        
+        <div class="user-box">
+          <input type="text" id="studname" name="studname" required="">
+          <label>Student name</label>
+        </div>
+
+        <div class="user-box">
+            <input type="text" id="eventname" name="eve_name" required="">
+            <label>Event Name</label>
+          </div>
+          
+        <div class="user-box">
+            <input type="date" id="date" name="date" required="">
+            <label>Date</label>
+          </div>
+        
+          
+        <div class="user-box">
+          <input type="text" id="category" name="category" required="">
+          <label>Category</label>
+        </div>
+        <div class="user-box">
+            <input type="text" id="revieww" name="revieww" required="">
+            <label>Review</label>
+          </div>
+          
+        <button  type="submit" class="btn" id="subreview">Submit</button>
+      </form>
+    </div>
+    <script>
+      document.getElementById('reviewForm').addEventListener('submit', async function(event) {
+        event.preventDefault(); // Prevent the form from submitting the usual way
+  
+        const uname = document.getElementById('username').value;
+  
+        try {
+          const response = await fetch(`/check-attendee?uname=${uname}`);
+          const data = await response.json();
+  
+          if (data.exists) {
+            alert('Review successfully submitted');
+            this.submit(); // Submit the form programmatically
+          } else {
+            alert('Username not found in attendees list');
+          }
+        } catch (error) {
+          console.error('Error:', error);
+          alert('An error occurred while checking the username');
+        }
+      });
+       
+    </script>
+  </body>
+</html>

@@ -1,0 +1,54 @@
+<!-- events.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events</title>
+    <style>
+        /* Add your CSS styles here */
+    </style>
+</head>
+<body>
+    <h1>Events</h1>
+    <div id="events-container">
+        <!-- Events will be dynamically added here -->
+    </div>
+
+    <script>
+        // Fetch events from server
+        fetch('/events')
+            .then(response => response.json())
+            .then(events => {
+                const eventsContainer = document.getElementById('events-container');
+                events.forEach(event => {
+                    const eventDiv = document.createElement('div');
+                    eventDiv.classList.add('event');
+
+                    const uniName = document.createElement('h2');
+                    eventName.textContent = event.uni_name;
+
+                    const eventName = document.createElement('h2');
+                    eventName.textContent = event.eve_name;
+
+                    const eventDate = document.createElement('p');
+                    eventDate.textContent = 'Date: ' + new Date(event.date).toLocaleDateString();
+
+                    const eventDescription = document.createElement('p');
+                    eventDescription.textContent = event.descr;
+
+                    // Add event details to eventDiv
+                    eventDiv.appendChild(uniName);
+                    eventDiv.appendChild(eventName);
+                    eventDiv.appendChild(eventDate);
+                    eventDiv.appendChild(eventDescription);
+
+                    // Append eventDiv to eventsContainer
+                    eventsContainer.appendChild(eventDiv);
+                });
+            })
+            .catch(error => console.error('Error fetching events:', error));
+    </script>
+</body>
+</html>

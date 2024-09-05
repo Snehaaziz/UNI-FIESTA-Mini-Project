@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(#30142b, #a12727);
+            height: 200vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .registration-box {
+            width: 400px;
+            padding: 40px;
+            background: rgba(0, 0, 0, .5);
+            border-radius: 10px;
+            box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
+        }
+
+        .registration-box h2 {
+            margin: 0;
+            padding: 0;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .form-group label {
+    position: absolute;
+    top: 50%; /* Position the label relative to the top of the input */
+    transform: translateY(-50%); /* Center the label vertically */
+    color: #fff; /* Change this color to something more visible */
+    left:0;
+    transition: .5s;
+    pointer-events: none;
+}
+
+
+        .form-group input {
+            width: 100%;
+            padding: 10px 0;
+            font-size: 16px;
+            color: #fff;
+            border: none;
+            border-bottom: 1px solid #fff;
+            background: transparent;
+            outline: none;
+        }
+
+        .form-group input:focus ~ label,
+        .form-group input:valid ~ label {
+            top: -20px;
+            color: #f68e44;
+            font-size: 12px;
+        }
+
+        #stdsignsub {
+            display: inline-block;
+            padding: 10px 20px;
+            height: 20%;
+            width: 40%;
+            margin: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #e01818;
+            color: #fff;
+            text-decoration: none;
+            font-size: 100%;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        #stdsignsub:hover {
+            background-color: #ff4f4f;
+        }
+        button{
+  padding: 10px 20px;
+  margin: 0 10px;
+  background-color: #e01818;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  text-decoration: none;
+  transition: background-color 0.3s ease-in-out;
+  /* Additional styles for fun and interactive text */
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+button:hover {
+  background-color: #ff0505;
+}
+label{
+  font-size: 16px;
+  text-decoration: none;
+  transition: background-color 0.3s ease-in-out;
+  /* Additional styles for fun and interactive text */
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+    </style>
+</head>
+<body>
+    <div class="registration-box">
+        <h2>EVENT REQUEST</h2>
+        <form action="/submit_request" method="POST">
+            <div class="form-group">
+                <input type="text" id="name" name="uni_name" required>
+                <label for="university">College Name</label>
+
+            </div>
+            <div class="form-group">
+                <input type="text" id="university" name="uni_loc" required>
+                <label for="university">College Location</label>
+            </div>
+            <div class="form-group">
+                <input type="text" id="age" name="eve_name" required>
+                <label for="age">Event Name</label>
+            </div>
+            <div class="form-group">
+                <input type="text" id="eventdesc" name="descr" required>
+                <label for="email">Event Description</label>
+            </div>
+            <div class="form-group">
+                <input type="date" id="eventdate" name="date" required>
+                <label for="date">Date</label>
+            </div>
+            <div class="form-group">
+                <input type="text" id="eventcategory" name="category" required>
+                <label for="category">category</label>
+            </div>
+            <div class="form-group">
+                <input type="text" id="eventparticipation" name="participation" required>
+                <label for="participation">participation</label>
+            </div>
+            <div class="form-group">
+                <input type="number" id="regfee" name="regfee" required>
+                <label for="regfee">registration fee</label>
+            </div>
+            <div class="form-group">
+                <input type="text" id="sponsorno" name="sponsorno" required>
+                <label for="sponsorno">Number for sponsors to contact</label>
+            </div>
+            <div class="form-group">
+                <button class="btn" id="stdsignsub">Submit</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

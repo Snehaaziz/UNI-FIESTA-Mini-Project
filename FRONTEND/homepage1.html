@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+    #main{
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif; /* Specify a font for the text */
+        background-image: url('fbimg.jpg'); /* Specify the background image */
+        background-size: cover; /* Cover the entire viewport */
+        background-position: center; /* Center the background image */
+        height: 100vh; /* Set the height of the body to the full viewport height */
+        display: flex; /* Use flexbox for centering */
+        justify-content: center; /* Center content horizontally */
+        align-items: center; /* Center content vertically */
+        background-color: rgba(255, 255, 255, 0.5);
+        }
+    .content{
+        text-align: center;/*Center align text*/
+        color:black;/*Set text color*/ 
+        }
+    #maincont{
+        font-size: 250%;
+        font-family:'Brush Stroke';
+        color: white;
+    }
+    #mainh{
+        font-size: 750%;
+        font-family: 'Arial Black';
+    }
+    div button{
+        width: 150px;
+        height: 50px;
+        cursor: pointer;
+        color: black;
+        font-size: 17px;
+        border-radius: 1rem;
+        border: none;
+        position: relative;
+        background: white;
+        transition: 0.1s;
+        margin: 0 4px;
+        padding: 6px 0;
+    }
+    div button:hover{
+        background-color: #ccc;
+    }
+    div button:focus{
+        outline: 2px solid #333;
+    }
+    </style>
+    <title>Fist Page</title>
+</head>
+<body id="main">
+    <div class="content">
+        <h1 id="mainh">UNI FIESTA</h1>
+        <p id="maincont"><i><b>Where Every Event is an Adventure!!!</b></i></p>
+        <button id="log">
+            Login
+        </button>
+        <button id="sign">
+            Sign Up
+        </button>
+        </a>
+        <button id="guest">
+            Enter as guest
+        </button>
+    </div>
+    <script>
+        var butt=document.getElementById("sign");
+        butt.addEventListener("click",function(){
+            window.location.href="signupopt3.html";
+        });
+        var butt=document.getElementById("guest");
+        butt.addEventListener("click",function(){
+            window.location.href="guestevent4.html";
+        });
+        var butt=document.getElementById("log");
+        butt.addEventListener("click",function(){
+            window.location.href="loginopt2.html";
+        });
+    </script>
+</body>
+</html>

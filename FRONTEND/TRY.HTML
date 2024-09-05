@@ -1,0 +1,31 @@
+.form-group label {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    color: #f68e44;
+    transition: .5s;
+    pointer-events: none;
+}
+background-color: #ee6627;
+
+// Route to handle search request
+app.get("/search", async (req, res) => {
+    try {
+        const query = req.query.q;
+        if (!query) {
+            return res.status(400).json({ error: 'Missing search query' });
+        }
+
+        const searchResults = await ApprovedEvent.find({
+            $or: [
+                { uni_name: { $regex: query, $options: 'i' } }, // Case-insensitive search by university name
+                { uni_loc: { $regex: query, $options: 'i' } }   // Case-insensitive search by location
+            ]
+        });
+
+        res.json(searchResults);
+    } catch (error) {
+        console.error('Error searching events:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});

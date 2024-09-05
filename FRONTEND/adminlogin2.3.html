@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Webleb</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link href="styles.css" rel="stylesheet">
+  <style>
+    /* Add your CSS styles here */
+    html {
+      height: 100%;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', sans-serif; /* Bold and capital letter font */
+      background: linear-gradient(#30142b, #a12727);
+    }
+
+    .login-box {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 400px;
+      padding: 40px;
+      background: rgba(0, 0, 0, .5);
+      box-sizing: border-box;
+      box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
+      border-radius: 10px;
+    }
+
+    .login-box h2 {
+      margin: 0 0 30px;
+      padding: 0;
+      color: #fff;
+      text-align: center;
+      font-size: 32px; /* Increase font size for emphasis */
+    }
+
+    .login-box .user-box {
+      position: relative;
+    }
+
+    .login-box .user-box input {
+      width: 100%;
+      padding: 10px 0;
+      font-size: 20px; /* Increase font size for better readability */
+      color: #fff;
+      margin-bottom: 30px;
+      border: none;
+      border-bottom: 1px solid #fff;
+      outline: none;
+      background: transparent;
+    }
+
+    .login-box .user-box label {
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 10px 0;
+      font-size: 20px; /* Increase font size for better readability */
+      color: #fff;
+      pointer-events: none;
+      transition: .5s;
+    }
+
+    .login-box .user-box input:focus ~ label,
+    .login-box .user-box input:valid ~ label {
+      top: -20px;
+      left: 0;
+      color: #f68e44;
+      font-size: 16px; /* Adjust font size for the floated label */
+    }
+
+    #stdsignsub {
+      display: inline-block;
+      padding: 15px 15px; /* Increase padding for a larger button */
+      border: none;
+      border-radius: 10px; /* Round the button shape */
+      cursor: pointer;
+      background-color: #e01818;
+      color: #fff;
+      text-decoration: none;
+      font-size: 24px; /* Increase font size for better visibility */
+      font-weight: bold; /* Apply bold font weight */
+      text-transform: uppercase; /* Convert text to uppercase for emphasis */
+      letter-spacing: 2px; /* Add letter spacing for better readability */
+      position: relative;
+      overflow: hidden;
+      transition: background-color 0.3s ease; /* Add smooth transition effect */
+    }
+
+    #stdsignsub:hover {
+      background-color: #ff0000; /* Change background color on hover */
+    }
+  </style>
+  <script>
+    function validateForm() {
+      var username = document.getElementById("username").value;
+      var password = document.getElementById("password").value;
+
+      if (username === "admin" && password === "Ad123*") {
+        window.location.href = "admin7.html"; // Redirect to abc.html if credentials are correct
+        return false; // Prevent form submission
+      } else {
+        alert("Incorrect username or password. Please try again.");
+        return false; // Prevent form submission
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="login-box">
+    <h2>ADMIN LOGIN</h2>
+    <form onsubmit="return validateForm()">
+      <div class="user-box">
+        <input type="text" id="username" required>
+        <label>Admin ID</label>
+      </div>
+      <div class="user-box">
+        <input type="password" id="password" required>
+        <label>Password</label>
+      </div>
+      <button class="btn" id="stdsignsub">login</button>
+    </form>
+  </div>
+</body>
+</html>

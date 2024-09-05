@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Webleb</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link href="styles.css" rel="stylesheet">
+  <style>
+    /* Add your CSS styles here */
+    html {
+      height: 100%;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', sans-serif; /* Bold and capital letter font */
+      background: linear-gradient(#30142b, #a12727);
+    }
+
+    .login-box {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 400px;
+      padding: 40px;
+      background: rgba(0, 0, 0, .5);
+      box-sizing: border-box;
+      box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
+      border-radius: 10px;
+    }
+
+    .login-box h2 {
+      margin: 0 0 30px;
+      padding: 0;
+      color: #fff;
+      text-align: center;
+      font-size: 32px; /* Increase font size for emphasis */
+    }
+
+    .login-box .user-box {
+      position: relative;
+    }
+
+    .login-box .user-box input {
+      width: 100%;
+      padding: 10px 0;
+      font-size: 20px; /* Increase font size for better readability */
+      color: #fff;
+      margin-bottom: 30px;
+      border: none;
+      border-bottom: 1px solid #fff;
+      outline: none;
+      background: transparent;
+    }
+
+    .login-box .user-box label {
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 10px 0;
+      font-size: 20px; /* Increase font size for better readability */
+      color: #fff;
+      pointer-events: none;
+      transition: .5s;
+    }
+
+    .login-box .user-box input:focus ~ label,
+    .login-box .user-box input:valid ~ label {
+      top: -20px;
+      left: 0;
+      color: #f68e44;
+      font-size: 16px; /* Adjust font size for the floated label */
+    }
+
+    .login-box button {
+      display: inline-block;
+      padding: 15px 15px; /* Increase padding for a larger button */
+      border: none;
+      border-radius: 10px; /* Round the button shape */
+      cursor: pointer;
+      background-color: #e01818;
+      color: #fff;
+      text-decoration: none;
+      font-size: 24px; /* Increase font size for better visibility */
+      font-weight: bold; /* Apply bold font weight */
+      text-transform: uppercase; /* Convert text to uppercase for emphasis */
+      letter-spacing: 2px; /* Add letter spacing for better readability */
+      position: relative;
+      overflow: hidden;
+      transition: background-color 0.3s ease; /* Add smooth transition effect */
+    }
+
+    .login-box button:hover {
+      background-color: #ff0000; /* Change background color on hover */
+    }
+  </style>
+</head>
+<body>
+  <div class="login-box">
+    <h2>STUDENT LOGIN</h2>
+    <form action="/stdlogin" method="POST">
+      <div class="user-box">
+        <input type="text" name="uname" required="">
+        <label>Username</label>
+      </div>
+      <div class="user-box">
+        <input type="password" name="upass" required="">
+        <label>Password</label>
+      </div>
+      <button class="btn" id="stdsignsub">Submit</button>
+    </form>
+  </div>
+</body>
+</html>

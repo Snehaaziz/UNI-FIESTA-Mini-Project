@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .event-details {
+            background-color: #f0f0f0;
+            padding: 20px;
+            margin: 20px auto;
+            width: 80%;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .register-button {
+            display: block;
+            width: 200px;
+            padding: 10px;
+            margin: 20px auto;
+            background-color: #e41111;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <h1>UNI FIESTA</h1>
+        <p class="tagline">where events come to life</p>
+        <div class="search-container">
+            <form action="/search" method="GET">
+                <input type="text" name="q" class="search-bar" placeholder="University name/Location">
+                <button type="submit" class="search-button">Search</button>
+            </form>
+        </div>
+    </nav>
+   
+    <div id="events-container">
+        <!-- Filtered events will be dynamically added here -->
+    </div>
+
+    <script>
+        // Fetch filtered events from server and display them
+        fetch('/search?q=query') // Replace 'query' with the actual search term
+            .then(response => response.json())
+            .then(events => {
+                const eventsContainer = document.getElementById('events-container');
+                events.forEach(event => {
+                    const eventDetails = document.createElement('div');
+                    eventDetails.classList.add('event-details');
+
+                    const uniName = document.createElement('h2');
+                    uniName.textContent =  'University Name: ' + event.uni_name;
+
+                    const eventName = document.createElement('h3');
+                    eventName.textContent = 'Event name: ' + event.eve_name;
+
+                    const eventDate = document.createElement('p');
+                    eventDate.textContent = 'Date: ' + new Date(event.date).toLocaleDateString();
+
+                    const eventLocation = document.createElement('p');
+                    eventLocation.textContent = 'Location: ' + event.uni_loc;
+
+                    const eventDescription = document.createElement('p');
+                    eventDescription.textContent = 'Description: ' + event.descr;
+
+                    const eventfee = document.createElement('p');
+                    eventfee.textContent = 'Event Reg fee: ' + event.regfee;
+
+                    const sponsorcontact = document.createElement('p');
+                    sponsorcontact.textContent = 'Interested sponsors pls contact: ' + event.sponsorno;
+
+                    // Add event details to eventDetails
+                    eventDetails.appendChild(uniName);
+                    eventDetails.appendChild(eventName);
+                    eventDetails.appendChild(eventDate);
+                    eventDetails.appendChild(eventLocation);
+                    eventDetails.appendChild(eventDescription);
+                    eventDetails.appendChild(eventfee);
+                    eventDetails.appendChild(sponsorcontact);
+
+                    // Add register button
+                    const registerButton = document.createElement('a');
+                    registerButton.classList.add('register-button');
+                    registerButton.textContent = 'Register';
+                    // Add link to register page
+                    registerButton.href = '/register.html'; // Replace with your actual register page URL
+
+                    // Append eventDetails and registerButton to eventsContainer
+                    eventsContainer.appendChild(eventDetails);
+                    eventsContainer.appendChild(registerButton);
+                });
+            })
+            .catch(error => console.error('Error fetching filtered events:', error));
+     // Fetch events from server and display them
+     fetch('/approveds')
+            .then(response => response.json())
+            .then(events => {
+                const eventsContainer = document.getElementById('events-container');
+                events.forEach(event => {
+                    const eventBox = document.createElement('div');
+                    eventBox.classList.add('event-box');
+
+                    const eventDetails = document.createElement('div');
+                    eventDetails.classList.add('event-details');
+
+                    const uniName = document.createElement('h2');
+                    uniName.textContent =  'University Name: ' + event.uni_name;
+
+
+                    const eventName = document.createElement('h3');
+                    eventName.textContent = 'Event name: ' + event.eve_name;
+
+                    const eventDate = document.createElement('p');
+                    eventDate.textContent = 'Date: ' + new Date(event.date).toLocaleDateString();
+
+                    const eventLocation = document.createElement('p');
+                    eventLocation.textContent = 'Location: ' + event.uni_loc;
+
+                    const eventDescription = document.createElement('p');
+                    eventDescription.textContent = 'Description: ' + event.descr;
+
+                    const eventfee = document.createElement('p');
+                    eventfee.textContent = 'Event Reg fee: ' + event.regfee;
+
+                    const sponsorcontact = document.createElement('p');
+                    sponsorcontact.textContent = 'Interested sponsors pls contact: ' + event.sponsorno;
+
+
+                    // Add event details to eventBox
+                    eventDetails.appendChild(uniName);
+                    eventDetails.appendChild(eventName);
+                    eventDetails.appendChild(eventDate);
+                    eventDetails.appendChild(eventLocation);
+                    eventDetails.appendChild(eventDescription);
+                    eventDetails.appendChild(eventfee);
+                    eventDetails.appendChild(sponsorcontact);
+                    eventBox.appendChild(eventDetails);
+
+                    // Add buttons
+                    const buttonsDiv = document.createElement('div');
+                    buttonsDiv.classList.add('register-button');
+
+                    const regButton = document.createElement('register-button');
+                
+                    regButton.textContent = 'Register';
+
+
+                    
+                    buttonsDiv.appendChild(regButton);
+
+                    eventBox.appendChild(buttonsDiv);
+
+                    // Append eventBox to eventsContainer
+                    eventsContainer.appendChild(eventBox);
+                });
+            })
+            .catch(error => console.error('Error fetching events:', error));
+
+        // Add event listener to each approve button
+        regButton.document.addEventListener('click', function () {
+           window.location.href="eventreg5.1.html"
+        });
+
+
+    
+    </script>
+</body>
+</html>
+
+
+---------------------
+app.get('/search', async (req, res) => {
+    const query = req.query.q; // Get the search query from the request
+
+    try {
+        // Perform search in the "approveds" collection based on university name or location
+        const events = await ApprovedEvent.find({
+            $or: [
+                { uni_name: { $regex: query, $options: 'i' } }, // Case-insensitive search for university name
+                { uni_loc: { $regex: query, $options: 'i' } } // Case-insensitive search for location
+            ]
+        }).exec();
+
+        res.json(events); // Send the filtered events as JSON response
+    } catch (error) {
+        console.error('Error searching events:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+----------------------
+<form action="/search" method="GET">
+    <input type="text" name="q" class="search-bar" placeholder="University name/Location">
+    <button type="submit" class="search-button">Search</button>
+</form>
+

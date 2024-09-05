@@ -1,0 +1,124 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Requests</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        .navbar h1 {
+            margin: 0;
+        }
+        .content {
+            padding: 20px;
+            text-align: center;
+        }
+        .event-box {
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px auto;
+            width: 100%; /* Make the box span the width of the page */
+            background-color: #f0f0f0;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .event-details {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .decline {
+            background-color: #e41111;
+            color: #fff;
+        }
+        .approve {
+            background-color: #007bff;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>Event Requests</h1>
+    </div>
+    <div class="content">
+        <div class="event-box">
+            <div class="event-details">
+                <h2>Event 1: Sports Day</h2>
+                <p>Date: May 15, 2024</p>
+                <p>Location: Stadium</p>
+                <p>Description: Join us for a day full of exciting sports competitions!</p>
+            </div>
+            <div class="buttons">
+                <button class="button decline">Decline</button>
+                <button class="button approve" data-event="Event 1">Approve</button>
+            </div>
+        </div>
+        <div class="event-box">
+            <div class="event-details">
+                <h2>Event 2: Music Concert</h2>
+                <p>Date: June 5, 2024</p>
+                <p>Location: Amphitheater</p>
+                <p>Description: Enjoy live performances from renowned artists!</p>
+            </div>
+            <div class="buttons">
+                <button class="button decline">Decline</button>
+                <button class="button approve" data-event="Event 2">Approve</button>
+            </div>
+        </div>
+        <div class="event-box">
+            <div class="event-details">
+                <h2>Event 3: Career Fair</h2>
+                <p>Date: July 20, 2024</p>
+                <p>Location: Exhibition Hall</p>
+                <p>Description: Explore career opportunities with top companies!</p>
+            </div>
+            <div class="buttons">
+                <button class="button decline">Decline</button>
+                <button class="button approve" data-event="Event 3">Approve</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add event listener to each approve button
+        const approveButtons = document.querySelectorAll('.approve');
+        approveButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const event = button.dataset.event; // Get the event name
+                sendApprovalRequest(event);
+            });
+        });
+
+        // Function to send approval request to the server
+        function sendApprovalRequest(eventName) {
+            // Placeholder function - Actual server-side code needed
+            console.log(`Event "${eventName}" approved`);
+            // Here, you would typically send an HTTP request to your server to handle the database operation
+            // Example: fetch('/approve', { method: 'POST', body: JSON.stringify({ event: eventName }) });
+        }
+    </script>
+</body>
+</html>
+

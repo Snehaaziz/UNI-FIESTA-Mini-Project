@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNI FIESTA</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(#30142b, #a12727);
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: maroon;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+        .tagline {
+            font-style: italic;
+            color: #f0f0f0;
+            margin-bottom: 20px;
+        }
+        .search-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .search-bar {
+            width: 300px;
+            padding: 10px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            outline: none;
+        }
+        .search-button {
+            padding: 10px 20px;
+            background-color:#e41111;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .event-details {
+            background-color: #f0f0f0;
+            padding: 20px;
+            margin: 20px auto;
+            width: 80%;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <h1>UNI FIESTA</h1>
+        <p class="tagline">where events come to life</p>
+        <div class="search-container">
+            <form id="search-form">
+                <input type="text" id="search-input" class="search-bar" placeholder="Clg name/Location/Category/Participation">
+                <button type="submit" class="search-button">Search</button>
+            </form>
+        </div>
+    </nav>
+    <div class="event details" id="events-container">
+        <!-- Events will be dynamically added here -->
+    </div>
+
+    <script>
+        // Function to fetch and display search results
+        function searchEvents(query) {
+            fetch(`/search?q=${query}`)
+                .then(response => response.json())
+                .then(events => {
+                    const eventsContainer = document.getElementById('events-container');
+                    eventsContainer.innerHTML = ''; // Clear previous search results
+
+                    events.forEach(event => {
+                        const eventBox = document.createElement('div');
+                        eventBox.classList.add('event-details');
+
+                        const uniName = document.createElement('h2');
+                        uniName.textContent = 'University Name: ' + event.uni_name;
+
+                        const eventName = document.createElement('h3');
+                        eventName.textContent = 'Event name: ' + event.eve_name;
+
+                        const eventDate = document.createElement('p');
+                        eventDate.textContent = 'Date: ' + new Date(event.date).toLocaleDateString();
+
+                        const eventLocation = document.createElement('p');
+                        eventLocation.textContent = 'Location: ' + event.uni_loc;
+
+                        const eventDescription = document.createElement('p');
+                        eventDescription.textContent = 'Description: ' + event.descr;
+
+                        const eventFee = document.createElement('p');
+                        eventFee.textContent = 'Event Reg fee: ' + event.regfee;
+
+                        const sponsorContact = document.createElement('p');
+                        sponsorContact.textContent = 'Interested sponsors pls contact: ' + event.sponsorno;
+
+                        eventBox.appendChild(uniName);
+                        eventBox.appendChild(eventName);
+                        eventBox.appendChild(eventDate);
+                        eventBox.appendChild(eventLocation);
+                        eventBox.appendChild(eventDescription);
+                        eventBox.appendChild(eventFee);
+                        eventBox.appendChild(sponsorContact);
+
+                        // Append eventBox to eventsContainer
+                        eventsContainer.appendChild(eventBox);
+                    });
+                })
+                .catch(error => console.error('Error fetching search results:', error));
+        }
+
+        // Event listener for search form submission
+        document.getElementById('search-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            const query = document.getElementById('search-input').value.trim();
+            if (query !== '') {
+                searchEvents(query);
+            }
+        });
+
+        // Fetch events from server and display them
+        fetch('/approveds')
+            .then(response => response.json())
+            .then(events => {
+                const eventsContainer = document.getElementById('events-container');
+                events.forEach(event => {
+                    const eventBox = document.createElement('div');
+                    eventBox.classList.add('event-box');
+
+                    const eventDetails = document.createElement('div');
+                    eventDetails.classList.add('event-details');
+
+                    const uniName = document.createElement('h2');
+                    uniName.textContent = 'University Name: ' + event.uni_name;
+
+                    const eventName = document.createElement('h3');
+                    eventName.textContent = 'Event name: ' + event.eve_name;
+
+                    const eventDate = document.createElement('p');
+                    eventDate.textContent = 'Date: ' + new Date(event.date).toLocaleDateString();
+
+                    const eventLocation = document.createElement('p');
+                    eventLocation.textContent = 'Location: ' + event.uni_loc;
+
+                    const eventDescription = document.createElement('p');
+                    eventDescription.textContent = 'Description: ' + event.descr;
+
+                    const eventFee = document.createElement('p');
+                    eventFee.textContent = 'Event Reg fee: ' + event.regfee;
+
+                    const sponsorContact = document.createElement('p');
+                    sponsorContact.textContent = 'Interested sponsors pls contact: ' + event.sponsorno;
+
+                    eventDetails.appendChild(uniName);
+                    eventDetails.appendChild(eventName);
+                    eventDetails.appendChild(eventDate);
+                    eventDetails.appendChild(eventLocation);
+                    eventDetails.appendChild(eventDescription);
+                    eventDetails.appendChild(eventFee);
+                    eventDetails.appendChild(sponsorContact);
+                    eventBox.appendChild(eventDetails);
+
+                    // Append eventBox to eventsContainer
+                    eventsContainer.appendChild(eventBox);
+                });
+            })
+            .catch(error => console.error('Error fetching events:', error));
+    </script>
+</body>
+</html>

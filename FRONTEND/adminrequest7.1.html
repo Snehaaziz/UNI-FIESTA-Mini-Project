@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Requests</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(#30142b, #a12727);
+        }
+        .navbar {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        .navbar h1 {
+            margin: 0;
+        }
+        .content {
+            padding: 20px;
+            text-align: center;
+        }
+        .event-box {
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px auto;
+            width: 100%; /* Make the box span the width of the page */
+            background-color: #f0f0f0;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .event-details {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .decline {
+            background-color: #e41111;
+            color: #fff;
+        }
+        .approve {
+            background-color: #007bff;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>EVENTS REQUESTS</h1>
+    </div>
+    <div class="content" id="events-container">
+        <!-- Events will be dynamically added here -->
+    </div>
+
+    <script>
+        // Fetch events from server and display them
+        fetch('/events')
+            .then(response => response.json())
+            .then(events => {
+                const eventsContainer = document.getElementById('events-container');
+                events.forEach(event => {
+                    const eventBox = document.createElement('div');
+                    eventBox.classList.add('event-box');
+
+                    const eventDetails = document.createElement('div');
+                    eventDetails.classList.add('event-details');
+
+                    const uniName = document.createElement('h2');
+                    uniName.textContent =  'University Name: ' + event.uni_name;
+
+                    const eventLocation = document.createElement('p');
+                    eventLocation.textContent = 'Location: ' + event.uni_loc;
+
+
+
+                    const eventName = document.createElement('h3');
+                    eventName.textContent = 'Event name: ' + event.eve_name;
+                    const eventDescription = document.createElement('p');
+                    eventDescription.textContent = 'Description: ' + event.descr;
+
+                    const eventDate = document.createElement('p');
+                    eventDate.textContent = 'Date: ' + new Date(event.date).toLocaleDateString();
+
+                    const eventCategory = document.createElement('p');
+                    eventCategory.textContent = 'Category: ' + event.category;
+
+                    const eventParticipation = document.createElement('p');
+                    eventParticipation.textContent = 'Participation: ' + event.participation;
+
+                    
+                    const eventfee = document.createElement('p');
+                    eventfee.textContent = 'Event Reg fee: ' + event.regfee;
+
+                    const sponsorcontact = document.createElement('p');
+                    sponsorcontact.textContent = 'Interested sponsors pls contact: ' + event.sponsorno;
+
+
+                    // Add event details to eventBox
+                    eventDetails.appendChild(uniName);
+                    eventDetails.appendChild(eventLocation);
+                    eventDetails.appendChild(eventName);
+                    eventDetails.appendChild(eventDescription);
+                    eventDetails.appendChild(eventDate);
+                    eventDetails.appendChild(eventCategory);
+                    eventDetails.appendChild(eventParticipation);
+                    eventDetails.appendChild(eventfee);
+                    eventDetails.appendChild(sponsorcontact);
+                    eventBox.appendChild(eventDetails);
+
+                    // Add buttons
+                    const buttonsDiv = document.createElement('div');
+                    buttonsDiv.classList.add('buttons');
+
+                    const declineButton = document.createElement('button');
+                    declineButton.classList.add('button', 'decline');
+                    declineButton.textContent = 'Decline';
+                    declineButton.dataset.event = event.eve_name; // Store event name as data attribute
+
+                    const approveButton = document.createElement('button');
+                    approveButton.classList.add('button', 'approve');
+                    approveButton.textContent = 'Approve';
+                    approveButton.dataset.event = event.eve_name; // Store event name as data attribute
+
+                    buttonsDiv.appendChild(declineButton);
+                    buttonsDiv.appendChild(approveButton);
+
+                    eventBox.appendChild(buttonsDiv);
+
+                    // Append eventBox to eventsContainer
+                    eventsContainer.appendChild(eventBox);
+                });
+            })
+            .catch(error => console.error('Error fetching events:', error));
+
+        // Add event listener to each approve button
+        document.addEventListener('click', function (event) {
+            if (event.target.matches('.approve')) {
+                const eventName = event.target.getAttribute('data-event');
+                sendApprovalRequest(eventName);
+            } else if (event.target.matches('.decline')) {
+                const eventName = event.target.getAttribute('data-event');
+                deleteEvent(eventName);
+            }
+        });
+
+        // Function to send approval request to the server
+        function sendApprovalRequest(eventName) {
+            fetch('/approve', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ eventName: eventName }) // Send event name in JSON format
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log(`Event "${eventName}" approved`);
+                    // Optional: Update UI to reflect approval
+                } else {
+                    console.error(`Error approving event "${eventName}"`);
+                }
+            })
+            .catch(error => console.error('Error sending approval request:', error));
+        }
+
+        // Function to delete an event from the collection
+        function deleteEvent(eventName) {
+            fetch('/delete', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ eventName: eventName }) // Send event name in JSON format
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log(`Event "${eventName}" deleted`);
+                    // Optional: Update UI to reflect deletion
+                    const eventBox = document.querySelector(`[data-event="${eventName}"]`).closest('.event-box');
+                    eventBox.remove(); // Remove the event box from the UI
+                } else {
+                    console.error(`Error deleting event "${eventName}"`);
+                }
+            })
+            .catch(error => console.error('Error deleting event:', error));
+        }
+    </script>
+</body>
+</html>
